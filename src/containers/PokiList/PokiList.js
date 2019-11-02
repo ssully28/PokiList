@@ -27,7 +27,8 @@ class PokiList extends Component {
         name: pokiResponse.data.name,
         weight: pokiResponse.data.weight,
         height: pokiResponse.data.height,
-        img: pokiResponse.data.sprites.front_default
+        img: pokiResponse.data.sprites.front_default,
+        expandedView: false
       });
     }
 
@@ -36,6 +37,24 @@ class PokiList extends Component {
 
   searchByNameHandler = (event) => {
     this.setState({ searchByName: event.target.value });
+  }
+
+  expandCollapseHandler = (cardId) => {
+
+    const pokiCopy = [...this.state.pokis];
+
+    const updatedPokis = pokiCopy.map(card => {
+      if (card.id === cardId) {
+        card.expandedView = !card.expandedView;
+        return card;
+      } else {
+        return card;
+      }
+    });
+
+    this.setState(state => ({
+      pokis: updatedPokis
+    }));
   }
 
   render() {
@@ -48,10 +67,13 @@ class PokiList extends Component {
       return (
         <PokiCard
           key={poki.id}
+          id={poki.id}
           name={poki.name}
           weight={poki.weight}
           height={poki.height}
           img={poki.img}
+          expandedView={poki.expandedView}
+          expandCollapse={(event) => this.expandCollapseHandler(event)}
         />
       );
     });

@@ -1,7 +1,8 @@
 /* To contain the search box in the outer container */
+
 .SearchBoxContainer {
   width: 100%;
-  padding: 15px 0;
+  padding: 15px 0 0 0;
   display: flex;
   justify-content: center;
 }

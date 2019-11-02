@@ -1,13 +1,16 @@
 .PokiList {
   background-color: white;
   width: 65%;
-  height: 200px;
+  height: 500px;
   border-radius: 8pt;
   overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
 }
 
 .PokiList::-webkit-scrollbar {
-  width: 0px; /* Chrome */
+  /* Chrome */
+  width: 0px;
 }

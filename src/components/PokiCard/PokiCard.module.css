@@ -1,11 +1,19 @@
 .PokiCard {
-  
   background-color: white;
-  height: 100%;
-  height: 120px;
+  min-height: 120px;
   display: flex;
   border-bottom: 1px solid #D6D5D5;
+}
 
+.Img {
+  box-sizing: border-box;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: 1px solid #D6D5D5;
+  margin-left: 10px;
+  margin-top: 15px;
+  margin-right: 25px;
 }
 
 .Name {
@@ -21,17 +29,15 @@
   font-weight: 200;
 }
 
-.Img {
-  box-sizing: border-box;
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  border: 1px solid #D6D5D5;
-  margin-left: 10px;
-  margin-top: 15px;
-  margin-right: 25px;
-}
-
 .Info {
   margin-left: 10px;
+}
+
+.ExpandedData {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.Btn {
+  margin-right: 10px;
 }
