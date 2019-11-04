@@ -42,6 +42,12 @@
   font-weight: 500;
 }
 
+.TagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
 .Btn {
   margin-right: 10px;
 }

@@ -1,0 +1,12 @@
+.AddTag {
+  box-sizing: border-box;
+  padding-left: 5px;
+  width: 175px;
+  height: 40px;
+  border: none;
+  font-size: 1em;
+  font-weight: 200;
+  border-bottom: 1px solid black;
+  outline: none !important;
+  box-shadow: none !important;
+}

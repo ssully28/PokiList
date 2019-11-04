@@ -1,12 +1,22 @@
 import React from 'react';
 import ExpandButton from '../ExpandButton/ExpandButton';
+import AddTag from '../AddTag/AddTag';
+import Tag from '../Tag/Tag';
+
 import classes from './PokiCard.module.css';
 
 const PokiCard = (props) => {
   const abilityList = props.abilities.map(ability => {
     return (
       <div key={ability}>{ability}</div>
-    )
+    );
+  });
+
+  // TODO: Need to create a unique key for the tag
+  const tagList = props.tags.map(tag => {
+    return (
+      <Tag key={tag} text={tag} />
+    );
   });
 
   return (
@@ -21,6 +31,13 @@ const PokiCard = (props) => {
             ? <div className={classes.ExpandedData}>
               <div className={classes.SubTitle}>Abilities:</div>
               {abilityList}
+              <div className={classes.TagContainer}>
+                {tagList}
+              </div>
+              <AddTag
+                addTagInputText={props.addTagInputText}
+                addTagHandler={props.addTagHandler}
+                addTagOnEnter={props.addTagOnEnter} />
             </div>
             : null
         }

@@ -34,6 +34,8 @@ class PokiList extends Component {
         weight: pokiResponse.data.weight,
         height: pokiResponse.data.height,
         img: pokiResponse.data.sprites.front_default,
+        tagInputText: '',
+        tags: [],
         abilities: abilities,
         expandedView: false
       });
@@ -44,6 +46,48 @@ class PokiList extends Component {
 
   searchByNameHandler = (event) => {
     this.setState({ searchByName: event.target.value });
+  }
+
+  // Need to update the add tag input box of the right poki
+  addTagHandler = (event, cardId) => {
+    const pokiCopy = [...this.state.pokis];
+
+    const updatedPokis = pokiCopy.map(card => {
+      if (card.id === cardId) {
+        card.tagInputText = event.target.value;
+        return card;
+      } else {
+        return card;
+      }
+    });
+
+    this.setState(state => ({
+      pokis: updatedPokis
+    }));
+  }
+
+  addTagOnEnter = (event, cardId) => {
+    // We'll want to take the current tagInputText from this cardIDs
+    // state and push it into this cardIds tags array!
+    // Then clear the text field...
+    // Then update the state!
+    if (event.key === 'Enter') {
+      const pokiCopy = [...this.state.pokis];
+
+      const updatedPokis = pokiCopy.map(card => {
+        if (card.id === cardId) {
+          card.tags.push(card.tagInputText);
+          card.tagInputText = '';
+          return card;
+        } else {
+          return card;
+        }
+      });
+
+      this.setState(state => ({
+        pokis: updatedPokis
+      }));
+    }
   }
 
   expandCollapseHandler = (cardId) => {
@@ -64,6 +108,8 @@ class PokiList extends Component {
     }));
   }
 
+
+
   render() {
 
     // Let's create a filtered list based on the searb by name:
@@ -80,6 +126,10 @@ class PokiList extends Component {
           height={poki.height}
           img={poki.img}
           abilities={poki.abilities}
+          addTagInputText={poki.tagInputText}
+          addTagHandler={(event) => this.addTagHandler(event, poki.id)}
+          addTagOnEnter={(event) => this.addTagOnEnter(event, poki.id)}
+          tags={poki.tags}
           expandedView={poki.expandedView}
           expandCollapse={(event) => this.expandCollapseHandler(event)}
         />
