@@ -3,6 +3,12 @@ import ExpandButton from '../ExpandButton/ExpandButton';
 import classes from './PokiCard.module.css';
 
 const PokiCard = (props) => {
+  const abilityList = props.abilities.map(ability => {
+    return (
+      <div key={ability}>{ability}</div>
+    )
+  });
+
   return (
     <div className={classes.PokiCard}>
       <img className={classes.Img} src={props.img} alt={props.name} />
@@ -13,7 +19,8 @@ const PokiCard = (props) => {
         {
           props.expandedView
             ? <div className={classes.ExpandedData}>
-              I am expanded text....only visible when in expanded view!
+              <div className={classes.SubTitle}>Abilities:</div>
+              {abilityList}
             </div>
             : null
         }

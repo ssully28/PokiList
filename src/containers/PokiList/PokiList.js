@@ -22,12 +22,19 @@ class PokiList extends Component {
     for (let i = 0; i < listOfPokis.length; i++) {
       let pokiResponse = await axios.get(listOfPokis[i].url);
 
+      const abilities = pokiResponse.data.abilities.map(ability => {
+        return (
+          ability.ability.name
+        )
+      });
+
       pokiList.push({
         id: pokiResponse.data.id,
         name: pokiResponse.data.name,
         weight: pokiResponse.data.weight,
         height: pokiResponse.data.height,
         img: pokiResponse.data.sprites.front_default,
+        abilities: abilities,
         expandedView: false
       });
     }
@@ -72,6 +79,7 @@ class PokiList extends Component {
           weight={poki.weight}
           height={poki.height}
           img={poki.img}
+          abilities={poki.abilities}
           expandedView={poki.expandedView}
           expandCollapse={(event) => this.expandCollapseHandler(event)}
         />
