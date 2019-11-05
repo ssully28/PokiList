@@ -9,7 +9,8 @@ const DOC_BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
 class PokiList extends Component {
   state = {
     pokis: [],
-    searchByName: ''
+    searchByName: '',
+    searchByTags: ''
   }
 
   // Load poki list on mount
@@ -46,6 +47,11 @@ class PokiList extends Component {
 
   searchByNameHandler = (event) => {
     this.setState({ searchByName: event.target.value });
+  }
+
+  searchByTagsHandler = (event) => {
+    console.log(event.target.value);
+    this.setState({ searchByTags: event.target.value });
   }
 
   // Need to update the add tag input box of the right poki
@@ -112,11 +118,36 @@ class PokiList extends Component {
 
   render() {
 
-    // Let's create a filtered list based on the searb by name:
-    const filteredPokis = this.state.pokis.filter(poki => poki.name.includes(this.state.searchByName));
+    let pokiArray = [];
+
+    // I'm not sure if we want to filter BY name AND tag or a name OR tag:
+
+    // Let's create a filtered list based on the search by name:
+
+    if (this.state.searchByName !== '') {
+      const filteredPokis = this.state.pokis.filter(poki => poki.name.includes(this.state.searchByName));
+      pokiArray = [...filteredPokis];
+    } else {
+      pokiArray = this.state.pokis;
+    }
+
+    // If it's "AND", then we'll do the second filter against filteredPokis
+    // If it's "OR", then we need to create a second filtered list and combine 
+    // Now let's create a filtered list by tags:
+
+    if (this.state.searchByTags !== '') {
+      // If we need to concat (in the 'or' case), then I'll need to use
+      // something more like:
+      //const filteredByTagPokis = this.state.pokis.filter(poki => poki.tags.join(' ').includes(this.state.searchByTags));
+      // I'm assuming the "AND" case, so going with this:
+      const filteredByTagPokis = pokiArray.filter(poki => poki.tags.join(' ').includes(this.state.searchByTags));
+      pokiArray = [...filteredByTagPokis];
+    }
+
+    console.log(pokiArray);
 
     // Then we'll list all pokis from that filtered list:
-    const pokiList = filteredPokis.map(poki => {
+    const pokiList = pokiArray.map(poki => {
       return (
         <PokiCard
           key={poki.id}
@@ -142,6 +173,11 @@ class PokiList extends Component {
           placeholder='Search by name'
           searchTerm={this.state.searchByName}
           changed={(event) => this.searchByNameHandler(event)}
+        />
+        <SearchBox
+          placeholder='Search by tags'
+          searchTerm={this.state.searchByTags}
+          changed={(event) => this.searchByTagsHandler(event)}
         />
         {pokiList}
       </div>
