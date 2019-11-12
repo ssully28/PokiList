@@ -4,8 +4,12 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 import PokiCard from '../../components/PokiCard/PokiCard';
 import classes from './PokiList.module.css';
 
+// Base URL to pull pokimon info from:
 const DOC_BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
 
+/**
+ * Meat and potatoes of the app. 
+ */
 class PokiList extends Component {
   state = {
     pokis: [],
@@ -50,7 +54,6 @@ class PokiList extends Component {
   }
 
   searchByTagsHandler = (event) => {
-    console.log(event.target.value);
     this.setState({ searchByTags: event.target.value });
   }
 
@@ -120,10 +123,12 @@ class PokiList extends Component {
 
     let pokiArray = [];
 
-    // I'm not sure if we want to filter BY name AND tag or a name OR tag:
-
+    // The instructions from the assessment weren't completely clear on this part...
+    // I'm not sure if we want to filter BY name AND tag or name OR tag:
+    
+    // First:
     // Let's create a filtered list based on the search by name:
-
+    
     if (this.state.searchByName !== '') {
       const filteredPokis = this.state.pokis.filter(poki => poki.name.includes(this.state.searchByName));
       pokiArray = [...filteredPokis];
@@ -131,20 +136,17 @@ class PokiList extends Component {
       pokiArray = this.state.pokis;
     }
 
+    // Note to self regarding the ambiguity from the assessment:
     // If it's "AND", then we'll do the second filter against filteredPokis
-    // If it's "OR", then we need to create a second filtered list and combine 
-    // Now let's create a filtered list by tags:
+    // If it's "OR", then we need to create a second filtered list and combine results
+
+    // I'm going to *assume* they meant to filter by name AND tag so....
+    // Now let's filter the pokiArray (created above) by tags:
 
     if (this.state.searchByTags !== '') {
-      // If we need to concat (in the 'or' case), then I'll need to use
-      // something more like:
-      //const filteredByTagPokis = this.state.pokis.filter(poki => poki.tags.join(' ').includes(this.state.searchByTags));
-      // I'm assuming the "AND" case, so going with this:
       const filteredByTagPokis = pokiArray.filter(poki => poki.tags.join(' ').includes(this.state.searchByTags));
       pokiArray = [...filteredByTagPokis];
     }
-
-    console.log(pokiArray);
 
     // Then we'll list all pokis from that filtered list:
     const pokiList = pokiArray.map(poki => {
@@ -182,7 +184,6 @@ class PokiList extends Component {
         {pokiList}
       </div>
     );
-
   };
 };
 

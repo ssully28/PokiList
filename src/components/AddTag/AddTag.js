@@ -1,14 +1,16 @@
 import React from 'react';
 import classes from './AddTag.module.css';
 
-
-
-const AddTag = ( props ) => {
+/**
+ * Component to add a tag to a poki card
+ * Only visible in expanded view.
+ */
+const AddTag = (props) => {
   return (
-    <input 
+    <input
       type='text'
       className={classes.AddTag}
-      value={props.addTagInputText} 
+      value={props.addTagInputText}
       onChange={props.addTagHandler}
       onKeyPress={props.addTagOnEnter}
       placeholder='Add a tag' />

@@ -2,9 +2,12 @@ import React from 'react';
 import ExpandButton from '../ExpandButton/ExpandButton';
 import AddTag from '../AddTag/AddTag';
 import Tag from '../Tag/Tag';
-
 import classes from './PokiCard.module.css';
 
+/**
+ * Poki Card takes a bunch of other components and assembles
+ * them to give the user a clean view of the pokimon's info
+ */
 const PokiCard = (props) => {
   const abilityList = props.abilities.map(ability => {
     return (
@@ -12,7 +15,6 @@ const PokiCard = (props) => {
     );
   });
 
-  // TODO: Need to create a unique key for the tag
   const tagList = props.tags.map(tag => {
     return (
       <Tag key={tag} text={tag} />
